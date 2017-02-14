@@ -63,14 +63,18 @@ function getXmlDeeplinksPlugin(configXml) {
  * @returns {String} The deeplinks host
  */
 function getDeeplinkHostFromDeeplinksConfig(xmlDeeplinksPlugin) {
-  var xmlDeeplinksPluginVariables = xmlDeeplinksPlugin['variable'];
-  var deeplinkHost = null;
-  xmlDeeplinksPluginVariables && xmlDeeplinksPluginVariables.forEach(function(xmlElement) {
-    if (xmlElement.$.name === 'DEEPLINK_HOST') {
-      deeplinkHost = xmlElement.$.value;
-    }
-  });
-  return deeplinkHost;
-}
+    var xmlDeeplinksPluginVariables = xmlDeeplinksPlugin['variable'];
+    var deeplinkHost = null;
+    var hostList = [];
+    xmlDeeplinksPluginVariables && xmlDeeplinksPluginVariables.forEach(function(xmlElement) {
+      var xmlElementName = xmlElement.$.name;
+
+      if (['DEEPLINK_HOST', 'DEEPLINK_2_HOST', 'DEEPLINK_3_HOST', 'DEEPLINK_4_HOST', 'DEEPLINK_5_HOST'].indexOf(xmlElementName) !== -1 ) {
+        hostList.push(xmlElement.$.value);
+        deeplinkHost = hostList;
+      }
+    });
+    return deeplinkHost;
+  }
 
 // endregion

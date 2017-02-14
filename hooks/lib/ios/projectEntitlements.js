@@ -112,7 +112,9 @@ function injectDeeplinkHost(currentEntitlements, deeplinkHost) {
 function generateAssociatedDomainsContent(deeplinkHost) {
   var domainsList = [];
 
-  domainsList.push(domainsListEntryForHost(deeplinkHost));
+  deeplinkHost.forEach(function (host) {
+    domainsList.push(domainsListEntryForHost(host));
+  });
 
   return domainsList;
 }
